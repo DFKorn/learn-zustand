@@ -7,6 +7,10 @@ const logCount = () => {
   console.log("count is", count);
 };
 
+const setCount = () => {
+  useCounterStore.setState({ count: 10 });
+};
+
 function App() {
   const count = useCounterStore((state) => state.count);
 
@@ -19,6 +23,7 @@ const OtherComponent = ({ count }: { count: number }) => {
   const incrementAsync = useCounterStore((state) => state.incrementAsync);
 
   useEffect(() => {
+    setCount();
     logCount();
   }, []);
 
