@@ -29,7 +29,7 @@ const OtherComponent = ({ count }: { count: number }) => {
 
   return (
     <div>
-      count is {count}
+      <h2>Count is {count}</h2>
       <div>
         <button onClick={increment}>Increment</button>
         <button onClick={incrementAsync}>Increment Async</button>
