@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "./App.css";
-import { useCounterStore } from "./store";
+import { useCounterStore } from "./state/CounterStore";
 
 const logCount = () => {
   const count = useCounterStore.getState().count;
