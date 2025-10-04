@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import "./App.css";
 import { useCounterStore } from "./state/CounterStore";
+import { useUserStore } from "./state/userStore";
+import { useQuery } from "@tanstack/react-query";
+import { getUser } from "./api/users";
 
 const logCount = () => {
   const count = useCounterStore.getState().count;
@@ -14,10 +17,16 @@ const setCount = () => {
 function App() {
   const count = useCounterStore((state) => state.count);
 
-  return <OtherComponent count={count} />;
+  return (
+    <div>
+      <CounterComponent count={count} />
+      <hr />
+      <UsersComponent />
+    </div>
+  );
 }
 
-const OtherComponent = ({ count }: { count: number }) => {
+const CounterComponent = ({ count }: { count: number }) => {
   const increment = useCounterStore((state) => state.increment);
   const decrement = useCounterStore((state) => state.decrement);
   const incrementAsync = useCounterStore((state) => state.incrementAsync);
@@ -35,6 +44,23 @@ const OtherComponent = ({ count }: { count: number }) => {
         <button onClick={incrementAsync}>Increment Async</button>
         <button onClick={decrement}>Decrement</button>
       </div>
+    </div>
+  );
+};
+
+const UsersComponent = () => {
+  const { filters } = useUserStore();
+
+  const { data } = useQuery({
+    queryKey: ["users", filters],
+    queryFn: () => getUser(filters),
+  });
+
+  return (
+    <div>
+      {data?.map((user) => (
+        <div key={user.id}>{user.name}</div>
+      ))}
     </div>
   );
 };
