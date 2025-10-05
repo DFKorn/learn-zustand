@@ -6,6 +6,8 @@ export type GetUsersFilters = {
 };
 
 export async function getUser(filters?: GetUsersFilters) {
+  // Some operations with the filters
+
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const users: User[] = [
     { id: 1, name: "Alice" },

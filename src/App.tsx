@@ -58,11 +58,20 @@ const UsersComponent = () => {
 
   return (
     <div>
+      <FilterComponent />
       {data?.map((user) => (
         <div key={user.id}>{user.name}</div>
       ))}
     </div>
   );
 };
+
+//component to set filters in the user store
+function FilterComponent() {
+  const { setFilters } = useUserStore();
+
+  //Form inputs to set filters
+  return <div></div>;
+}
 
 export default App;
