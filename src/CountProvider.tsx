@@ -1,5 +1,11 @@
-import { createContext, useState, type PropsWithChildren } from "react";
-import { createStore, type StoreApi } from "zustand";
+import {
+  createContext,
+  use,
+  useContext,
+  useState,
+  type PropsWithChildren,
+} from "react";
+import { createStore, useStore, type StoreApi } from "zustand";
 
 type CountStore = {
   count: number;
@@ -28,4 +34,13 @@ export default function CountProvider({
   return (
     <CountContext.Provider value={store}>{children}</CountContext.Provider>
   );
+}
+
+export function useCounterStore<T>(selector: (state: CountStore) => T) {
+  const context = useContext(CountContext);
+
+  if (!context) {
+    throw new Error("useCounterStore must be used within a CountProvider");
+  }
+  return useStore(context, selector);
 }
