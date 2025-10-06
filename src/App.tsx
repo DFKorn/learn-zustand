@@ -4,6 +4,7 @@ import { useCounterStore } from "./state/CounterStore";
 import { useUserStore } from "./state/userStore";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "./api/users";
+import CountProvider, { useCountStore } from "./CountProvider";
 
 const logCount = () => {
   const count = useCounterStore.getState().count;
@@ -22,6 +23,10 @@ function App() {
       <CounterComponent count={count} />
       <hr />
       <UsersComponent />
+      <hr />
+      <CountProvider initialCount={5}>
+        <ContextComponent />
+      </CountProvider>
     </div>
   );
 }
@@ -75,3 +80,20 @@ function FilterComponent() {
 }
 
 export default App;
+
+function ContextComponent() {
+  const count = useCountStore((state) => state.count);
+  const increment = useCountStore((state) => state.increment);
+  const decrement = useCountStore((state) => state.decrement);
+  console.log(count);
+
+  return (
+    <div>
+      <h2>Count from Context is {count}</h2>
+      <div>
+        <button onClick={increment}>Increment</button>
+        <button onClick={decrement}>Decrement</button>
+      </div>
+    </div>
+  );
+}

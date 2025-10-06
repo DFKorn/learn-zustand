@@ -1,6 +1,5 @@
 import {
   createContext,
-  use,
   useContext,
   useState,
   type PropsWithChildren,
@@ -36,7 +35,7 @@ export default function CountProvider({
   );
 }
 
-export function useCounterStore<T>(selector: (state: CountStore) => T) {
+export function useCountStore<T>(selector: (state: CountStore) => T) {
   const context = useContext(CountContext);
 
   if (!context) {
